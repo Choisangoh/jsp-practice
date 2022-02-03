@@ -44,7 +44,7 @@
       <%
          out.println(++total);
          // scritlet 내부에 선언한 변수는 접속시마다 초기화 된다.
-         // 새로고침 할 때마다 실행되므로 0과1을 반복
+         // 새로고침 할 때마다 재실행되므로 0과1을 반복
          int currentNum = 0;
          out.println("<br/>");
          out.println(++currentNum);
