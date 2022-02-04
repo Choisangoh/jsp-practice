@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>미성년자 체크</title>
-</head>
+</head> 
 <body>
    <form action="res_check.jsp" method="get">
       <input type="number" name="age" placeholder="나이">세<br/>
