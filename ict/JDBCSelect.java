@@ -4,7 +4,7 @@ package kr.co.ict;
 import java.sql.*;
 
 public class JDBCSelect {
-
+ 
 	public static void main(String[] args) {
 		// JDBC 연결 여부 확인
 		
