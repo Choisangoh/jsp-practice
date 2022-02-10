@@ -39,13 +39,14 @@ public class JDBCSelectQ1 {
 			// while문을 이용해서 select구문의 전체 결과를 
 			// 콘솔에 찍어주세요.
 			// 1, 4번 컬럼은 컬럼명으로 출력, 2, 3번컬럼은 인덱스로 출력
-			rs.next();	
+			while(rs.next()) {
+			// uid가 하나만 잡혀 나와서 if를 써도 가능하다.
 			System.out.println(rs.getString("uname"));
 			System.out.println(rs.getString(2));
 			System.out.println(rs.getString(3));
 			System.out.println(rs.getString("uemail"));
 			System.out.println("--------------------");
-			
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
