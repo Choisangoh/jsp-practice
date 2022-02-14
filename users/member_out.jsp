@@ -40,9 +40,6 @@
 	}finally{
 		// 세션 모두 파기하기
 		session.invalidate();
-		
-		// 다시 로그인창으로 보내기
-		response.sendRedirect("login_form.jsp");
 	}
     %>
 <!DOCTYPE html>
@@ -53,5 +50,6 @@
 </head>
 <body>
    <h1><%=sId %> 회원의 탈퇴가 완료되었습니다.</h1>
+   <a href="login_form.jsp">로그인 하러가기</a>
 </body>
 </html>
