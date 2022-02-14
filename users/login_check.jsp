@@ -39,22 +39,16 @@
     		System.out.println("DB내 유저 아이디 : " + uId);
     		System.out.println("DB내 유저 비번 : " + uPw);
     		if(fid.equals(uId) && fpw.equals(uPw)){
-    			out.println("<h1>로그인에 성공하셨습니다.</h1>");
-    			
+    			out.println("<h1>로그인에 성공하셨습니다.</h1>");   			
     			session.setAttribute("session_id", uId);
-    			session.setAttribute("session_pw", uPw);   		
+    			session.setAttribute("session_pw", uPw);  
+			response.sendRedirect("login_welcome.jsp");
     	}else{
     		out.println("<h1>비밀번호가 틀렸습니다. 다시 확인해주세요.</h1>");
     	}
     	}else{
     		out.println("<h1>아이디가 없습니다. 다시 확인해주세요.</h1>");
-    	}
-    	
-    	// 5. 만약 웰컴페이지도 만들 여력이 되면
-    	// 가입 이후 리다이렉트로 넘겨서
-    	// 이름(아이디)님 환영합니다 라는 문장이 뜨는 
-    	// login_welcome.jsp까지 구현해보기
-   	
+    	}	
     }catch(Exception e){
     	e.printStackTrace();
     }
