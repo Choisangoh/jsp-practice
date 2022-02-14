@@ -19,8 +19,9 @@
 </head>
 <body>
    <h1><%=sId %>님 환영합니다.</h1>
-   <a href="#">정보수정</a><br/>
+   
+   <a href="login_update.jsp">정보수정</a><br/>
    <a href="logout.jsp">로그아웃</a><br/>
-   <a href="#">탈퇴하기</a><br/>
+   <a href="member_out.jsp">탈퇴하기</a><br/>
 </body>
 </html>
