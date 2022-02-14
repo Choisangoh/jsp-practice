@@ -56,6 +56,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+    <a href="login_form.jsp">로그인 하러가기</a>
 </body>
 </html>
