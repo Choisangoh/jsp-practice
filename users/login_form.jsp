@@ -20,5 +20,6 @@
        <input type="submit" value="로그인" >
        <input type="reset" value="초기화" >
    </form>
+   <a href="join_form.jsp">회원가입하기</a>
 </body>
 </html>
