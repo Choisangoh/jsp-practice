@@ -4,7 +4,7 @@
     <%
     // form에서 날려준 데이터 가져오기 - request.getParameter();
     // session에서 날려준 데이터 가져오기 - (String)session.getAttribute();
-    String sId = (String)session.getAttribute("session_id");
+    String sId = (String)session.getAttribute("session_id"); 
     
     // 그리고 로그인 안 한 사용자가 접근하면 로그인폼으로 리다이렉트
     if(sId == null){   	
