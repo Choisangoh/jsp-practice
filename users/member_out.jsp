@@ -28,6 +28,8 @@
 		pstmt.setString(1,sId); // 현재 로그인된 유저를 삭제하기 위해서 sId를 넣어야됨.
 		
 		// 쿼리문 실행
+		// executeQuery();는 SELECT문 실행 시에만 사용
+		// executeUpdate();는 그 이외 구문들 실행 시 사용
 		pstmt.executeUpdate();	 
 		
 		// 자원 회수하기
