@@ -64,9 +64,9 @@
    input태그 안에 value 속성을 이용하면 미리 채워질 값을 지정할 수 있다.  -->
    <h1>정보를 수정합니다.</h1>
    <form action="update_check.jsp" method="post">
-      <input type="password" name="FPW" placeholder="비밀번호"><br/>
-      <input type="text" name="FNA" placeholder="이름" value="<%=uName %>"><br/>
-      <input type="email" name="FEM" placeholder="이메일" value="<%=uEmail %>"><br/>
+      <input type="password" name="FPW" placeholder="비밀번호" required><br/>
+      <input type="text" name="FNA" placeholder="이름" value="<%=uName %>" required><br/>
+      <input type="email" name="FEM" placeholder="이메일" value="<%=uEmail %>" required><br/>
       <input type="submit" value="확인">
       <input type="reset" value="초기화">
    </form>
