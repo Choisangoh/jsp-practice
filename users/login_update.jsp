@@ -9,17 +9,17 @@
 	   response.sendRedirect("login_form.jsp");
    }
     
+	// 상위지역에서 미리 uName과 uEmail을 선언을 선언 및 초기화 해놔야
+	// 표현식에서 저장된 값을 활용할수 있다.
+	String uName = "";
+        String uEmail = null;	
+	
+	
     // DB 변수 선언
     String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
 	String dbId = "root";
-	String dbPw = "mysql";
-	
-	// 상위지역에서 미리 uName과 uEmail을 선언을 선언 및 초기화 해놔야
-	// 표현식에서 저장된 값을 활용할수 있다.
-	String uName = "";
-    String uEmail = null;	
-	
+	String dbPw = "mysql";	
     try{
     // 2. DB지정 및 연결
 	Class.forName(dbType);
