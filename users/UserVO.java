@@ -11,8 +11,15 @@ public class UserVO {
 	private String uEmail;
 	
 	// 2. 생성자, getter, setter 만들기
-	// 우클릭 - source - setter and getter
-	// 우클릭 - source - constructor using field
+	// 우클릭 - source - setter and getter 
+	// 우클릭 - source - constructor using field (셍성자)
+	public UserVO(String uName, String uId, String uPw, String uEmail) {	
+		super();
+		this.uName = uName;
+		this.uId = uId;
+		this.uPw = uPw;
+		this.uEmail = uEmail;
+		}
 	public String getuName() {
 		return uName;
 	}
@@ -37,13 +44,13 @@ public class UserVO {
 	public void setuEmail(String uEmail) {
 		this.uEmail = uEmail;
 	}
-	
-	// 3. (선택, 필수는 아님)toString 만들기
+
+	// 3. (선택, 필수는 아님)toString 만들기 
+	// toString은 콘솔이나 화면에 UserVO를 찍었을때 
+	// 주소대신 내부 데이터가 나오도록 해준다.
 	@Override
 	public String toString() {
 		return "UserVO [uName=" + uName + ", uId=" + uId + ", uPw=" + uPw + ", uEmail=" + uEmail + "]";
-	}
-	
-	
-
+	}	
 }
+
