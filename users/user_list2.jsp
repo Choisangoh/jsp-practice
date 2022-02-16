@@ -1,3 +1,4 @@
+<%@page import="kr.co.ict.UserDAO"%>
 <%@page import="kr.co.ict.UserVO"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
@@ -12,6 +13,7 @@
     // VO는 클래스이기 때문에 src/main/java에 클래스를 선언 및 정의한다.
     // UserVO.class 만들기
     
+    /*
     // 1. DB접속 변수 생성
     String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -61,7 +63,16 @@
 		pstmt.close();
 		rs.close();
 	}
-    
+   */ 
+   
+   // 모든 접속정보는 UserDAO클래스 내에 있다.
+   // 따라서 UserDAO를 생성하는 것으로 접속정보는 설정이 끝난다.
+   UserDAO dao = new UserDAO(); // DB종류 지정까지 완료
+   
+   // dao 내부에 userinfo 테이블 전체의 데이터를 가져오는
+   // getAllUserList()를 호출하는 것으로 필요 데이터 적재가 끝난다.
+   List<UserVO> userList = dao.getAllUserList(); 
+   // DB내 전체 데이터를 우측에 배달받아 좌변에 저장한다.
     %>
 <!DOCTYPE html>
 <html>
