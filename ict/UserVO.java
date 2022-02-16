@@ -3,7 +3,7 @@ package kr.co.ict;
 public class UserVO {
 	// VO는 특정 테이블의 자료를 자바형식으로 저장하기 위해 선언한다.
 	// 그래서 SQL데이터를 자바로 옮겨오기 위해
-	
+	 
 	// 1. 담당할 테이블의 컬럼을 전부 변수로 만들기
 	private String uName;
 	private String uId;
