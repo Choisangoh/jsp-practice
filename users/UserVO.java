@@ -11,6 +11,8 @@ public class UserVO {
 	private String uEmail;
 	
 	// 2. 생성자, getter, setter 만들기
+	// 우클릭 - source - setter and getter
+	// 우클릭 - source - constructor using field
 	public String getuName() {
 		return uName;
 	}
