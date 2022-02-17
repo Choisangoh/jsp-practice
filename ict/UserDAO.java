@@ -31,6 +31,8 @@ public class UserDAO {
 	// 실행 결과로 List<UserVO>를 리턴해줘야한다.
 	// 역시 SELECT구문을 실행할때에는 리턴자료가 필요하고,
 	// INSERT, DELETE, UPDATE구문을 실행할 때는 리턴자료가 void이다.
+	
+	// List<UserVO>는 여러명의 계정 정보
 	public List<UserVO> getAllUserList(){
 		// try블럭 진입 전에 Connection, PreparedStatement, ResultSet을 선언
 		ResultSet rs = null;
@@ -74,4 +76,56 @@ public class UserDAO {
 		}
 		return userList;
 	}
+	
+	
+	// login_update.jsp의 경우 로그인한 유저 한명의 데이터만 DB에서 얻어온다.
+    // 따라서, 그 한명의 유저 데이터만을 이용해 SELECT구문을 써야한다.
+	// login_update.jsp상단의 sId 변수에 들어있는 유저명을 이용해 유저데이터를 얻어온다.
+	
+	// UserVO는 한명의 계정 정보
+	public UserVO getUserData(String sId) {
+		// 접속로직은 getAllUserList()와 큰 차이가 없고 쿼리문만 조금 다르다.	
+
+		// 1. try블럭 진입 전에 Connection, PreparedStatement, ResultSet 선언
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;		
+		
+		// try블럭 진입 전에 UserVO 변수 선언
+		// UserVO는 return구문에서 사용
+		UserVO user = null;
+		
+		try {
+			// 2. DB 연결
+		    con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+		    
+		    // 3. 쿼리문을 날려서 rs에 DB에서 가져온 정보 받기
+		    String sql = "SELECT * FROM userinfo WHERE uid=?";	 
+		    pstmt = con.prepareStatement(sql);
+		    pstmt.setString(1, sId);
+		    rs = pstmt.executeQuery();
+		    
+		    // 4. rs에 저장된 데이터를 UserVO에 담기	    
+		    if(rs.next()){
+		    	String uName = rs.getString("uname");
+		    	String uId = rs.getString("uid");
+		    	String uPw = rs.getString("upw");
+		    	String uEmail = rs.getString("uemail");
+		    	user = new UserVO(uName, uId, uPw, uEmail);
+		    }		
+		    // 5. catch, finally 블럭을 작성하고, finally에서는 자원회수
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally { 
+			try {
+			con.close();
+		    pstmt.close();
+		    rs.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
 }
+
