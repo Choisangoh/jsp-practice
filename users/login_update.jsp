@@ -1,3 +1,5 @@
+<%@page import="kr.co.ict.UserDAO"%>
+<%@page import="kr.co.ict.UserVO"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,13 +10,12 @@
     if(sId == null){
 	   response.sendRedirect("login_form.jsp");
    }
-    
+    /*
 	// 상위지역에서 미리 uName과 uEmail을 선언을 선언 및 초기화 해놔야
 	// 표현식에서 저장된 값을 활용할수 있다.
 	String uName = "";
-        String uEmail = null;	
-	
-	
+    String uEmail = null;	
+    
     // DB 변수 선언
     String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -49,13 +50,24 @@
 	}catch(Exception e){
 		e.printStackTrace();
 	}
+    */
+    
+    // DAO를 활용한 로직으로 전환
+    // 1. DAO 생성
+    UserDAO dao = new UserDAO();
+    // 2. DAO내부에서 회원 1명의 정보만 가져오는 getUserData 호출
+    UserVO user = dao.getUserData(sId); // sId는 이미 세션에서 얻어왔음
+    // 3. 얻어온 user 내용물 확인
+    out.println(user + "<br/>"); // UserVO에 toString메서드가 있어서 내용물이 출력됨.
+    // 4. user 내용물을 아래쪽 표현식에 getter로 넣어준다.
+    
     %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+</head> 
 <body>
    <!-- update의 경우는 update_check.jsp로 자료를 보내야 하는데,
    보통 정보를 수정하는 경우는, 미리 회원정보가 form에 기입되어 있는 경우가 많다.
@@ -65,8 +77,8 @@
    <h1>정보를 수정합니다.</h1>
    <form action="update_check.jsp" method="post">
       <input type="password" name="FPW" placeholder="비밀번호" required><br/>
-      <input type="text" name="FNA" placeholder="이름" value="<%=uName %>" required><br/>
-      <input type="email" name="FEM" placeholder="이메일" value="<%=uEmail %>" required><br/>
+      <input type="text" name="FNA" placeholder="이름" value="<%=user.getuName() %>" required><br/>
+      <input type="email" name="FEM" placeholder="이메일" value="<%=user.getuEmail() %>" required><br/>
       <input type="submit" value="확인">
       <input type="reset" value="초기화">
    </form>
