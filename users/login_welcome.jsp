@@ -8,7 +8,7 @@
    
     // 로그인 안 된 사용자가 여기로 접근하면 로그인페이지로 보내기
     if(sId == null){
-	   response.sendRedirect("login_check.jsp");
+	   response.sendRedirect("login_form.jsp");
    }
     %>
 <!DOCTYPE html>
