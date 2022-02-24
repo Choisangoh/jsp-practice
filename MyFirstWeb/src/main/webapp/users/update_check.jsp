@@ -1,3 +1,4 @@
+<%@page import="kr.co.ict.UserDAO"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -16,7 +17,8 @@
     // 2. 세션에 저장된 아이디를 변수로 저장하기
     String sId = (String)session.getAttribute("session_id");
     System.out.println("세션으로 얻어온 아이디 : " + sId);
-    		
+    
+    /*
     // 3. DB접속정보 변수로 관리
     String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -41,15 +43,17 @@
     con.close();
     pstmt.close();
     
-    // 7. body태그에 xx회원의 정보가 수정되었습니다. 
-    // 라고 안내해주고, 웰컴 페이지로 갈 수 있는 링크 넣어주기
-     
     }catch(Exception e){
     	e.printStackTrace();
     }finally{
     	
     }
-    
+	  */
+	  UserDAO dao = new UserDAO();
+	  dao.UpdateCheck(sId, fPW, fNA, fEM);
+	  
+	  // 7. body태그에 xx회원의 정보가 수정되었습니다. 
+	  // 라고 안내해주고, 웰컴 페이지로 갈 수 있는 링크 넣어주기
     %>
 <!DOCTYPE html>
 <html>
