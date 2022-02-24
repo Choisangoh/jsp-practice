@@ -163,4 +163,38 @@ public class UserDAO {
 			}
 		}
     }
+	
+	
+	// member_out.jsp에서 사용할 탈퇴기능을 DAO로 이전하기
+	// 메서드명은 deleteUser(String sId)이고,
+	// DAO파일에 생성 후, member_out.jsp에서도 해당 메서드를 쓰도록 고치기.
+	public void deleteUser(String sId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;		
+		// ResultSet은 SELECT구문에만 필요함
+		try {
+			 con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			    
+			 String sql = "DELETE FROM userinfo WHERE uid=?";
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, sId);
+			 
+			 pstmt.executeUpdate();
+			 
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			    pstmt.close();
+			    
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
+		}
+	}
+
+	
+	// 회원가입 로직 insertUser() 처리하기	
+
 }
