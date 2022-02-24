@@ -127,5 +127,40 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	
+	// updateCheck에 필요한 userUpdate메서드 정의
+	// UPDATE구문을 실행하기 때문에 리턴자료가 필요없고
+	// update_check.jsp에 있는 쿼리문을 실행하기 위해
+	// id,pw,name,email 정보 모두 받아온다.
+	public void UpdateCheck(String uId, String uPw, String uName, String uEmail) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;		
+		// ResultSet은 SELECT구문에만 필요함
+		
+		try {	
+			 con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			
+			 String sql = "UPDATE userinfo SET upw=?, uname=?, uemail=? WHERE uid=?";
+			 
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, uPw);
+			 pstmt.setString(2, uName);		
+			 pstmt.setString(3, uEmail);
+			 pstmt.setString(4, uId);
+			 
+			 pstmt.executeUpdate();
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			    pstmt.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
+		}
+    }
 }
-
