@@ -1,3 +1,5 @@
+<%@page import="kr.co.ict.UserVO"%>
+<%@page import="kr.co.ict.UserDAO"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,6 +12,8 @@
     if(sId == null){   	
     	response.sendRedirect("login_form.jsp");
     }  
+    
+    /*
     // DB연결을 위한 변수선언
     String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -42,6 +46,10 @@
 		session.invalidate();
 
 	}
+	*/
+	UserDAO dao = new UserDAO();
+	dao.deleteUser(sId);
+    session.invalidate();
     %>
 <!DOCTYPE html>
 <html>
