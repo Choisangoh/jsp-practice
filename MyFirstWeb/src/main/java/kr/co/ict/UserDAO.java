@@ -19,13 +19,40 @@ public class UserDAO {
 	
 	// 생성자를 이용해서 생성 할 떄 자동으로 Class.forName()을 실행하게 만든다.
 	// 어떤 구문을 실행하더라도 공통적으로 활용하는 부분
-	public UserDAO() {
+	//public UserDAO() {
+	//	try {
+	//		Class.forName(dbType);
+	//	}catch(Exception e) {
+	//		e.printStackTrace();
+	//	}
+	//}
+	
+	// !!!--- 싱글턴 패턴 처리 ---!!!
+	// 3. DAO내부에 맴버변수로 UserDAO를 하나 생성해준다.
+	private static UserDAO dao = new UserDAO();
+	// 싱글턴은 요청 시마다 DAO를 매번 새로 생성하지 않고, 먼저 하나를 생성해둔 다음
+	// 사용자 요청때는 이미 생성된 DAO의 주소값만 공유해서
+	// DAO생성에 필요한 시간을 절약하기 위해 사용한다.
+	// 1. 생성자는 private으로 처리해 외부에서 생성명령을 내릴 수 없게 처리한다.
+	private UserDAO() {
 		try {
 			Class.forName(dbType);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	// 2. static 키워드를 이용해서 단 한번만 생성하고,
+	// 그 이후에는 주소를 공유하는 getInstance() 메서드를 생성한다.
+	public static UserDAO getInstance() {
+		if(dao != null) {
+			dao = new UserDAO();
+		}
+		return dao;
+	}
+	
+	
+	
+	
 	// user_list2.jsp의 코드 로직을 대체해보겠음
 	// user_list2.jsp에서 전체 유저 목록을 필요로 하기 때문에
 	// 실행 결과로 List<UserVO>를 리턴해줘야한다.
@@ -33,7 +60,7 @@ public class UserDAO {
 	// INSERT, DELETE, UPDATE구문을 실행할 때는 리턴자료가 void이다.
 	
 	// List<UserVO>는 여러명의 계정 정보
-	public List<UserVO> getAllUserList(){
+ 	public List<UserVO> getAllUserList(){
 		// try블럭 진입 전에 Connection, PreparedStatement, ResultSet을 선언
 		ResultSet rs = null;
 		Connection con = null;
@@ -196,5 +223,32 @@ public class UserDAO {
 
 	
 	// 회원가입 로직 insertUser() 처리하기	
-
+	public void insertUser(String uName, String uId, String uPw, String uEmail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;		
+		
+		try {
+			 con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+				
+			 String sql = "INSERT INTO userinfo VALUES(?, ?, ?, ?)";
+			 
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, uName);
+		     pstmt.setString(2, uId);
+			 pstmt.setString(3, uPw);
+			 pstmt.setString(4, uEmail);
+			 
+			 pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			    pstmt.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
+		}
+	}
 }
