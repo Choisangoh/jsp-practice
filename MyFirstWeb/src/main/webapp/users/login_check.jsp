@@ -37,7 +37,7 @@
     	
     	// 1~3번까지의 로직을 DAO의 getUserDate를 사용해 얻어오기
         // DAO 생성
-        UserDAO dao = new UserDAO();
+        UserDAO dao = UserDAO.getInstance();
         // UserVO getUserData() 결과 받기
         UserVO user = dao.getUserData(fid);    
         System.out.println("DB에서 받아온 정보 " + user);

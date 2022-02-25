@@ -49,7 +49,7 @@
     	
     }
 	  */
-	  UserDAO dao = new UserDAO();
+	  UserDAO dao = UserDAO.getInstance();
 	  dao.UpdateCheck(sId, fPW, fNA, fEM);
 	  
 	  // 7. body태그에 xx회원의 정보가 수정되었습니다. 

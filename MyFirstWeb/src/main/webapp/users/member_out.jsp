@@ -41,13 +41,17 @@
 		pstmt.close();
 	}catch(Exception e){
 		e.printStackTrace();
+		
+		
+		
+		
 	}finally{
 		// 세션 모두 파기하기
 		session.invalidate();
 
 	}
 	*/
-	UserDAO dao = new UserDAO();
+	UserDAO dao = UserDAO.getInstance();
 	dao.deleteUser(sId);
     session.invalidate();
     %>
