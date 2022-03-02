@@ -26,13 +26,49 @@
    <h1>1~100까지의 누적합은 ${total }</h1>
    <hr/>
    
+   
+   
    <!-- forEach문을 이용해서 구구단 4단 출력하기 -->
-   <c:forEach begin="1" end="9" step="1" var="dan">   
-      4 * ${dan } = ${4 * dan }<br/>
+   <c:forEach begin="1" end="9" step="1" var="hang">   
+      4 * ${hang } = ${4 * hang }<br/>
    </c:forEach>
    <hr/>
    
-   <!-- 중첩 forEach를 이용해서 2~9단까지 출력하기 -->
    
+   
+   <!-- 중첩 forEach를 이용해서 2~9단까지 출력하기 -->
+   <c:forEach begin="2" end="9" step="1" var="dan">
+      <c:forEach begin="1" end="9" step="1" var="hang">
+         ${dan } * ${hang } = ${dan * hang }<br/>
+      </c:forEach>  
+         <hr/>
+   </c:forEach>
+   <hr/>
+   
+   
+   
+   <h1>숫자가 아닌 요소를 반복하는 JSTL</h1>
+   <%-- arr변수 내에 과일 5개 이름을 배열로 저장하는 구문 --%>
+   <c:set var="arr" value='<%= new String[] {"사과","딸기","망고","포도","바나나"} %>'/>
+   <%-- c:forEach는 향상된 for문처럼 쓸 수도 있다. --%>
+   <c:forEach var="i" items="${arr }">
+      ${i } &nbsp;
+   </c:forEach>
+   <%--
+        String[] arr = {"사과","딸기","망고","포도","바나나"};
+        for(String i : arr){
+                out.println(i + "&nbsp;");
+              }
+    --%> 
+    
+    
+    
+    <!-- int 배열에 10,20,30,40,50을 넣고
+    c:forEach문을 이용해 화면에 출력하기, 변수명은 알아서 -->
+     <c:set var="nums" value='<%= new int[]{10, 20, 30, 40, 50}%>'/>
+     <c:forEach var="i" items="${nums }">
+        ${i } &nbsp;
+     </c:forEach>
+    
 </body>
 </html>
