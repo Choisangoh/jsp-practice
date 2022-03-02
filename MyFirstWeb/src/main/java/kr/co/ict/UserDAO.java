@@ -8,14 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 // DAO 클래스는 DB연동을 전담하여 처리한다.
 public class UserDAO {
 	
 	// DB접속에 필요한 변수드르을 아래에 선언한다.
-	private String dbType = "com.mysql.cj.jdbc.Driver";
-	private String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
-	private String dbId = "root";
-	private String dbPw = "mysql";
+	// private String dbType = "com.mysql.cj.jdbc.Driver";
+	// private String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
+	// private String dbId = "root";
+	// private String dbPw = "mysql";
+	private DataSource ds = null;
 	
 	// 생성자를 이용해서 생성 할 떄 자동으로 Class.forName()을 실행하게 만든다.
 	// 어떤 구문을 실행하더라도 공통적으로 활용하는 부분
@@ -36,7 +41,8 @@ public class UserDAO {
 	// 1. 생성자는 private으로 처리해 외부에서 생성명령을 내릴 수 없게 처리한다.
 	private UserDAO() {
 		try {
-			Class.forName(dbType);
+			Context ct = new InitialContext();
+			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -71,7 +77,7 @@ public class UserDAO {
 		try {
 		
 		// DB연결
-		con = DriverManager.getConnection(dbUrl, dbId, dbPw);		
+		con = ds.getConnection();	
 		
 		// SELECT * FROM userinfo 실행 및 ResultSet에 저장 
 		 String sql = "SELECT * FROM userinfo";
@@ -124,7 +130,7 @@ public class UserDAO {
 		
 		try {
 			// 2. DB 연결
-		    con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();	
 		    
 		    // 3. 쿼리문을 날려서 rs에 DB에서 가져온 정보 받기
 		    String sql = "SELECT * FROM userinfo WHERE uid=?";	 
@@ -167,7 +173,7 @@ public class UserDAO {
 		// ResultSet은 SELECT구문에만 필요함
 		
 		try {	
-			 con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();	
 			
 			 String sql = "UPDATE userinfo SET upw=?, uname=?, uemail=? WHERE uid=?";
 			 
@@ -200,7 +206,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;		
 		// ResultSet은 SELECT구문에만 필요함
 		try {
-			 con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();	
 			    
 			 String sql = "DELETE FROM userinfo WHERE uid=?";
 			 pstmt = con.prepareStatement(sql);
@@ -228,7 +234,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;		
 		
 		try {
-			 con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();	
 				
 			 String sql = "INSERT INTO userinfo VALUES(?, ?, ?, ?)";
 			 

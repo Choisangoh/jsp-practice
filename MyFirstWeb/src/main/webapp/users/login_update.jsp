@@ -28,7 +28,7 @@
     
     // 3. 로그인된 아이디의 전체 정보(SELECT * FROM) 얻어오기
     String sql = "SELECT * FROM userinfo WHERE uid=?";
- 
+  
     PreparedStatement pstmt = con.prepareStatement(sql);
     pstmt.setString(1, sId);
     ResultSet rs = pstmt.executeQuery();

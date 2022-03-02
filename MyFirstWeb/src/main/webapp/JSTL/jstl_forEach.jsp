@@ -54,12 +54,12 @@
    <c:forEach var="i" items="${arr }">
       ${i } &nbsp;
    </c:forEach>
-   <%--
+   <!--
         String[] arr = {"사과","딸기","망고","포도","바나나"};
         for(String i : arr){
                 out.println(i + "&nbsp;");
               }
-    --%> 
+    --> 
     
     
     
