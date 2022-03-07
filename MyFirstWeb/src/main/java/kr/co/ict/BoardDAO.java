@@ -62,7 +62,7 @@ public class BoardDAO {
 			con = ds.getConnection();
 			
 			// SELECT * FROM userinfo 실행 및 ResultSet에 저장
-			String sql = "SELECT * FROM boardtbl";
+			String sql = "SELECT * FROM boardtbl ORDER BY board_num DESC";
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -95,5 +95,33 @@ public class BoardDAO {
 		}	
 		return boardList;
 	}
-	
+
+	// insertBoard 내부 쿼리문 실행시 필요한 3개 요소인 글제목, 본문, 글쓴이를 입력해야만 실행할 수 있게 설계한다.
+	public void insertBoard(String title, String content, String writer) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			// INSERT의 경우 두 가지 유형
+			// 전체컬럼요소 다넣기 INSERT INTO boardTbl VALUES(null, ?, ?, ?, now(), now(), 0); 
+			// 일부요소만 넣기 INSERT INTO boardTbl(title, content, writer) VALUES(?, ?, ?);
+			String sql = "INSERT INTO boardTbl(title, content, writer) VALUES(?, ?, ?)";
+			pstmt = con.prepareStatement(sql);// 쿼리문 세팅
+			// 실행 전 상단 쿼리문 ? 채워넣기
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setString(3, writer);
+			// 실행하기
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+				pstmt.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
 }
