@@ -62,7 +62,7 @@ public class BoardDAO {
 			con = ds.getConnection();
 			
 			// SELECT * FROM userinfo 실행 및 ResultSet에 저장
-			String sql = "SELECT * FROM boardtbl ORDER BY board_num DESC";
+			String sql = "SELECT * FROM boardinfo ORDER BY board_num DESC";
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -105,7 +105,7 @@ public class BoardDAO {
 			// INSERT의 경우 두 가지 유형
 			// 전체컬럼요소 다넣기 INSERT INTO boardTbl VALUES(null, ?, ?, ?, now(), now(), 0); 
 			// 일부요소만 넣기 INSERT INTO boardTbl(title, content, writer) VALUES(?, ?, ?);
-			String sql = "INSERT INTO boardTbl(title, content, writer) VALUES(?, ?, ?)";
+			String sql = "INSERT INTO boardinfo(title, content, writer) VALUES(?, ?, ?)";
 			pstmt = con.prepareStatement(sql);// 쿼리문 세팅
 			// 실행 전 상단 쿼리문 ? 채워넣기
 			pstmt.setString(1, title);
@@ -124,4 +124,45 @@ public class BoardDAO {
 			}
 		}
 	}
+
+    // 글 한개만 필요한 상황이므로 BoardVO 하나면 처리 가능
+	public BoardVO getBoardDetail(int board_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		BoardVO board = null;
+		try {
+            con = ds.getConnection();
+			
+			String sql = "SELECT * FROM boardinfo WHERE board_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int boardNum = rs.getInt("board_num");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String writer = rs.getString("writer");
+				Date bDate = rs.getDate("bdate");
+				Date mDate = rs.getDate("mdate");
+				int hit = rs.getInt("hit");
+				
+				board = new BoardVO(boardNum, title, content, writer, bDate, mDate, hit);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+				pstmt.close();
+				rs.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return board;
+    }
 }
