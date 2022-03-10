@@ -165,4 +165,33 @@ public class BoardDAO {
 		}
 		return board;
     }
+	
+	// deleteBoard에 메서드를 만들어서 삭제처리가 되도록하고
+	// 서블릿에서 해당 메서드를 호출해 실제로 삭제버튼을 누르면 DB에서 해당 번호 글이 삭제되도록 하기
+	public void deleteBoard(int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();	
+			    
+			 String sql = "DELETE FROM boardinfo WHERE board_num=?";
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setInt(1, boardNum);
+			 
+			 pstmt.executeUpdate();
+			 
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			    pstmt.close();
+			    
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
+		}
+	}	
+
+    
 }
