@@ -193,5 +193,31 @@ public class BoardDAO {
 		}
 	}	
 
-    
+    // update도 select가 아니므로 void리턴 자료형을 가진다
+	public void boardUpadate(String title, String content, int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();	
+			    
+			 String sql = "UPDATE boardinfo SET title=?, content=?, mdate=now() WHERE board_num=?";
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, title);
+			 pstmt.setString(2, content);
+			 pstmt.setInt(3, boardNum);
+			 
+			 pstmt.executeUpdate();
+			 
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			    pstmt.close();
+			    
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
+		}
+	}		
 }

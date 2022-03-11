@@ -39,6 +39,9 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 	    </c:forEach>
      </tbody>
 	</table>
+	<form action="http://localhost:8181/MyFirstWeb/boardinsertform">
+	<input type="submit" value="글쓰기">
+	</form>
 	
 	
 </body>
