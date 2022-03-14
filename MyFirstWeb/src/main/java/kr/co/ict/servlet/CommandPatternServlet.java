@@ -25,11 +25,18 @@ public class CommandPatternServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("*.test 패턴으로 접속 감지");
 		// .test 앞에 들어오는 문자가 뭔지 감지해야 사용자의 요청을 파악할 수 있음.
 		String uri = request.getRequestURI();
 		System.out.println(uri);
+		if(uri.equals("/MyFirstweb/boardlist.test")) {
+			response.sendRedirect("http://localhost:8181/MyFirstWeb/boardList");
+		}else if(uri.equals("/MyFirstweb/login.test")) {
+			response.sendRedirect("http://localhost:8181/MyFirstWeb/users/login_form.jsp");
+		}else if(uri.equals("/MyFirstweb/main.test")){
+			response.sendRedirect("http://localhost:8181/MyFirstWeb/");
+		}
 	}
 
 	/**
