@@ -30,6 +30,8 @@ public class insertBoardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 기본적으로, SELECT구문을 제외한 쿼리문 호출은 POST방식으로만 접근할 수 있도록 한다.
 		
+		request.setCharacterEncoding("utf-8");
+		
 		// 1. DAO생성
 		BoardDAO dao = BoardDAO.getInstance();
 		

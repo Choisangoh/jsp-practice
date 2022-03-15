@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <form action="http://localhost:8181/MyFirstWeb/insertBoard" method="post">
+   <form action="http://localhost:8181/MyFirstWeb/insertBoard.do" method="post">
       <input type="text" name="title" placeholder="제목 입력" required><br/>
       <input type="text" name="writer" placeholder="글쓴이 입력" required><br/>
       <textarea rows="30" cols="30" name="content"placeholder="내용 입력" required></textarea><br/>
