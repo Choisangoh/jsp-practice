@@ -19,10 +19,5 @@ public class BoardInsertFormService implements IBoardService{
 		
 		// 글쓰기창에 아이디를 보내서 로그인 사용자명이 곧 아이디로 쓰이도록 처리
 		request.setAttribute("sId", sId);
-		
-		if(sId == null) {
-			RequestDispatcher dp = request.getRequestDispatcher("/boardList.do");
-			dp.forward(request, response);
 		}
 	}
-}

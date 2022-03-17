@@ -4,6 +4,11 @@
     <%
     request.setCharacterEncoding("utf-8");
     %>
+    <c:if test="${sId eq null }">
+    	<%
+    	response.sendRedirect("http://localhost:8181/MyFirstWeb/boardList.do");
+    	%>
+    </c:if>
 <!DOCTYPE html>
 <html>
 <head>

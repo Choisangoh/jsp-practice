@@ -150,6 +150,7 @@ public class BoardDAO {
 				int hit = rs.getInt("hit");
 				
 				board = new BoardVO(boardNum, title, content, writer, bDate, mDate, hit);
+			    upHit(boardNum);
 			}
 			
 		}catch(Exception e){
@@ -220,4 +221,13 @@ public class BoardDAO {
 			}
 		}
 	}		
+
+    // 서비스가 아닌 getBoardDetail 실행시 자동으로 같이 조회수가 올라가도록 실행되게 처리하기
+	// 글 제목을 클릭할때마다 조회수 상승시키는 메서드
+	private void upHit(int strBId) {
+		
+		String sql = "UPDATE boardinfo SET hit = (hit + 1) WHERE board_num=?";
+		
+		System.out.println("현재 조회된 글 번호 : " + strBId);
+	}
 }
