@@ -50,7 +50,8 @@ public class BoardDAO {
 	// 3-2. 쿼리문을 boardtbl 테이블에서 데이터를 가져오도록 수정합니다.
 	
 	// 3-3. while문 내부에서 BoardVO 세팅이 가능하도록 rs에서 데이터 가져오는 부분을 수정합니다.
-	public List<BoardVO> getAllBoardList(){
+	// 페이징 처리를 위해 페이지 번호를 추가로 입력받기
+	public List<BoardVO> getAllBoardList(int pageNum){
 		// try블럭 진입 전 Connection, PreparedStatement, ResultSet 선언
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -60,10 +61,12 @@ public class BoardDAO {
 		try {
 			// Connection, PreparedStatement, ResultSet을 선언합니다.
 			con = ds.getConnection();
+			int limitNum = ((pageNum-1) * 10);
 			
 			// SELECT * FROM userinfo 실행 및 ResultSet에 저장
-			String sql = "SELECT * FROM boardinfo ORDER BY board_num DESC";
+			String sql = "SELECT * FROM boardinfo ORDER BY board_num DESC limit ?, 10";			
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, limitNum);
 			
 			rs = pstmt.executeQuery();
 
@@ -150,7 +153,6 @@ public class BoardDAO {
 				int hit = rs.getInt("hit");
 				
 				board = new BoardVO(boardNum, title, content, writer, bDate, mDate, hit);
-			    upHit(boardNum);
 			}
 			
 		}catch(Exception e){
@@ -224,10 +226,26 @@ public class BoardDAO {
 
     // 서비스가 아닌 getBoardDetail 실행시 자동으로 같이 조회수가 올라가도록 실행되게 처리하기
 	// 글 제목을 클릭할때마다 조회수 상승시키는 메서드
-	private void upHit(int strBId) {
-		
-		String sql = "UPDATE boardinfo SET hit = (hit + 1) WHERE board_num=?";
-		
-		System.out.println("현재 조회된 글 번호 : " + strBId);
+	public void upHit(int bId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "UPDATE boardinfo SET hit = (hit + 1) WHERE board_num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bId);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			    pstmt.close();
+			}catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
 	}
 }
