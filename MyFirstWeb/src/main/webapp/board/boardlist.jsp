@@ -37,6 +37,11 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 	    </c:forEach>
      </tbody>
 	</table>
+	
+	
+	${dto }
+	
+	
 	<c:if test="${not empty sId }">
 	   <form action="http://localhost:8181/MyFirstWeb/insertForm.do"><button>글쓰기</button>
 	</c:if>
