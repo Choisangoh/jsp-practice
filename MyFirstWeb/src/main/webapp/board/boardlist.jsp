@@ -37,16 +37,47 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
 	    </c:forEach>
      </tbody>
 	</table>
-	
-	
-	${dto }
-	
-	
+		
 	<c:if test="${not empty sId }">
 	   <form action="http://localhost:8181/MyFirstWeb/insertForm.do"><button>글쓰기</button>
 	</c:if>
 	<c:if test="${sessionScope.session_id ne null }">
 	   <form action="http://localhost:8181/MyFirstWeb/insertForm.do"><button>글쓰기</button>
 	</c:if>
+	
+	${dto }
+	
+	<nav aria-label="Page navigation example">
+  	  <ul class="pagination justify-content-center">
+  	  	<c:if test="${dto.startPage ne 1}">
+    		<li class="page-item"><a class="page-link" href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${dto.startPage - 1 }">&laquo;</a></li>
+    	</c:if>
+    	<c:forEach var="pageIndex" begin="${dto.startPage }" end="${dto.endPage }">
+    		<li class="page-item" ${dto.currentPage eq pageIndex ? 'active' : '' }><a class="page-link" href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${pageIndex }">${pageIndex }</a></li>
+    	</c:forEach>
+    	<c:if test="${dto.endPage ne dto.totalPages }">
+    		<li class="page-item"><a class="page-link" href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${dto.endPage + 1 }">&raquo;</a></li>
+    	</c:if>
+     </ul>
+   </nav>
+   <hr/>
+   
+   
+   <h3>부트스트랩 없이 만들기</h3>
+   <c:if test="${dto.startPage ne 1}">
+    	<a href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${dto.startPage - 1 }">이전</a>
+   </c:if>
+   <c:forEach var="pageIndex" begin="${dto.startPage }" end="${dto.endPage }">
+   		<c:if test="${dto.currentPage eq pageIndex }">
+   			<a href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${pageIndex }"><b>[[${pageIndex }]]</b></a>
+   		</c:if>
+   		<c:if test="${dto.currentPage ne pageIndex }">
+   			<a href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${pageIndex }">[[${pageIndex }]]</a>
+   		</c:if>
+   </c:forEach>
+   <c:if test="${dto.endPage ne dto.totalPages }">
+   		<a href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${dto.startPage + 1 }">다음</a>
+   </c:if>
+	
 </body>
 </html>
